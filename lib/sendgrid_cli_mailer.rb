@@ -25,7 +25,7 @@ module SendgridCliMailer
           # Do something or c.when_called Sg_mailer::Commands::Mail
           stdin_body = stdin.read if stdin.stat.size > 0
           body  = stdin_body || options.body || "No Message Body"
-          if ( options.__hash__.keys.size ==  5)
+          unless ( (%(user key to from subject) && options.__hash__.keys).size == 5)
             SendgridToolkit::Mail.new(options.user, options.key).send_mail :to => options.to, :from => options.from, 
               :subject => options.subject, :text => body
           else
