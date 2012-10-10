@@ -1,6 +1,11 @@
 # SendgridCliMailer
 
-TODO: Write a gem description
+This is a simple gem I wrote so I could email from Utility servers or
+servers without Rails from CLI. I chose Ruby so I wouldn't have to
+depend on any SMTP deamons,etc.
+
+Thanks @freerobby at https://github.com/freerobby/sendgrid_toolkit for
+the Ruby API.
 
 ## Installation
 
@@ -18,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
 
 ## Contributing
 
