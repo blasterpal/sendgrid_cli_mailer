@@ -3,10 +3,10 @@ require File.expand_path('../lib/sendgrid_cli_mailer/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Hank Beaver"]
-  gem.email         = ["hank.beaver@blinqmedia.com"]
+  gem.email         = ["hbeaver@gmail.com"]
   gem.description   = %q{Simple CLI mailer for Sendgrid via API}
   gem.summary       = %q{Provides a sg_mailer CLI to send mail to your Sendgrid account}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/blasterpal/sendgrid_cli_mailer"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
@@ -15,6 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = SendgridCliMailer::VERSION
   gem.add_dependency "sendgrid_toolkit", "~>1.2"
-  gem.add_dependency "commander", "~> 4.1"
+  gem.add_dependency "thor" , "~> 0.16.0"
 
 end

@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+require 'sendgrid_toolkit'
+require "thor"
+
+
+class SendgridCliMailerCommand < Thor
+  desc "mail", "Sends an email via SendGrid API"
+  method_option :user, :aliases => "-u", :desc => "SendGrid API User", :required => true
+  method_option :key, :aliases => "-k", :desc => "SendGrid API key", :required => true
+  method_option :to, :aliases => "-t", :desc => "Email 'to' address", :required => true
+  method_option :from, :aliases => "-f", :desc => "Email 'from' address", :required => true
+  method_option :subject, :aliases => "-s", :desc => "Email 'subject'", :required => true
+  method_option :body, :aliases => "-b", :desc => "Email 'body'", :required => false
+  def mail
+    stdin_body = $stdin.read if $stdin.stat.size > 0
+    body  = stdin_body || options.body || "No Message Body"
+    SendgridToolkit::Mail.new(options[:user], options[:key]).send_mail :to => options[:to], :from => options[:from], 
+      :subject => options[:subject], :text => body
+  end
+end
+SendgridCliMailerCommand.start()
+
