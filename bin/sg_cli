@@ -12,8 +12,7 @@ class SendgridCliMailerCommand < Thor
   method_option :subject, :aliases => "-s", :desc => "Email 'subject'", :required => true
   method_option :body, :aliases => "-b", :desc => "Email 'body'", :required => false
   def mail
-    stdin_body = $stdin.read if $stdin.stat.size > 0
-    body  = stdin_body || options.body || "No Message Body"
+    body  = options.body || "No Message Body"
     SendgridToolkit::Mail.new(options[:user], options[:key]).send_mail :to => options[:to], :from => options[:from], 
       :subject => options[:subject], :text => body
   end

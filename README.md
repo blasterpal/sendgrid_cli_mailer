@@ -25,14 +25,11 @@ Or install it yourself as:
 
 You can send a message with a body specified via arguments:
 
-    sg_mailer mail --from 'admin@yourjoint.com' --to 'hank@me.com' --subject 'Testing CLI' --body 'Short Body' --user 'sg@foo.com' --key '1234'" 
+    sg_cli mail --from 'admin@yourjoint.com' --to 'hank@me.com' --subject 'Testing CLI' --body 'Short Body' --user 'sg@foo.com' --key '1234'" 
 
-Or use STDOUT/Redirection to send a message body:
+OR use your body input in other ways like so:
 
-    cat /some/file | sg_mailer mail --from 'admin@yourjoint.com' --to 'hank@me.com' --subject 'Testing CLI' --user 'sg@foo.com' --key '1234'" 
-
-NOTE: if you supply both the STDIN will win.
-
+    sg_cli mail --from 'admin@yourjoint.com' --to 'hank@me.com' --subject 'Testing CLI' --user 'sg@foo.com' --key '1234'" --body `cat /etc/hosts`
 
 
 ## Contributing
