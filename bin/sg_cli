@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
 require 'sendgrid_toolkit'
 require "thor"
-
+require 'sendgrid_cli_mailer'
 
 class SendgridCliMailerCommand < Thor
   desc "mail", "Sends an email via SendGrid API"
@@ -18,5 +19,5 @@ class SendgridCliMailerCommand < Thor
       :subject => options[:subject], :text => body
   end
 end
-SendgridCliMailerCommand.start()
+SendgridCliMailerCommand.start
 
