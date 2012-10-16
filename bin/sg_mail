@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), '..', 'lib')
+require 'sendgrid_toolkit'
+require "thor"
+require 'yaml'
+require 'sendgrid_cli_mailer'
+
+class SendgridCliMailerCommand < Thor
+  desc "mail", "Sends an email via SendGrid API, will attempt to read user, key and from address from ~/.sg_mail"
+  method_option :user, :aliases => "-u", :desc => "SendGrid API User", :required => false
+  method_option :key, :aliases => "-k", :desc => "SendGrid API key", :required => false
+  method_option :to, :aliases => "-t", :desc => "Email 'to' address", :required => true
+  method_option :from, :aliases => "-f", :desc => "Email 'from' address", :required => false
+  method_option :subject, :aliases => "-s", :desc => "Email 'subject'", :required => true
+  method_option :body, :aliases => "-b", :desc => "Email 'body'", :required => false
+  def mail
+    mailer_settings = {}
+    sg_dotfile = File.join(File.expand_path('~'),".sg_mail")
+    if File.exists?(sg_dotfile)
+      mailer_settings = YAML.load_file sg_dotfile
+    else
+      mailer_settings['user'] = options[:user]
+      mailer_settings['key'] = options[:key]
+      mailer_settings['from'] = options[:from] 
+    end
+    unless(mailer_settings['user'] && mailer_settings['key'] && mailer_settings['from'])
+      raise "Not all arguments supplied or .sg_mail doesn't have user,key and from"
+    end
+    body  = options[:body] || "No Message Body"
+    
+    ::SendgridCliMailer::Runner.new(mailer_settings,options,body)
+  end
+end
+SendgridCliMailerCommand.start
+
